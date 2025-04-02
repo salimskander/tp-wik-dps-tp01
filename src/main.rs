@@ -237,7 +237,14 @@ async fn index_handler() -> Html<&'static str> {
                     if (response.status === 404) {
                         statusEl.textContent = `Statut: ${response.status} ${response.statusText} ✅`;
                         statusEl.className = 'status success';
-                        resultEl.textContent = `La méthode ${method} sur /ping retourne bien 404 comme demandé`;
+                        
+                        // Afficher les headers de la réponse
+                        const headers = {};
+                        response.headers.forEach((value, key) => {
+                            headers[key] = value;
+                        });
+                        
+                        resultEl.textContent = `La méthode ${method} sur /ping retourne bien 404 comme demandé\n\nHeaders de la réponse:\n${JSON.stringify(headers, null, 2)}`;
                     } else {
                         statusEl.textContent = `Statut: ${response.status} ${response.statusText} ❌`;
                         statusEl.className = 'status error';
@@ -264,7 +271,14 @@ async fn index_handler() -> Html<&'static str> {
                     if (response.status === 404) {
                         statusEl.textContent = `Statut: ${response.status} ${response.statusText} ✅`;
                         statusEl.className = 'status success';
-                        resultEl.textContent = 'La route /autre-route retourne bien 404 comme demandé';
+                        
+                        // Afficher les headers de la réponse
+                        const headers = {};
+                        response.headers.forEach((value, key) => {
+                            headers[key] = value;
+                        });
+                        
+                        resultEl.textContent = `La route /autre-route retourne bien 404 comme demandé\n\nHeaders de la réponse:\n${JSON.stringify(headers, null, 2)}`;
                     } else {
                         statusEl.textContent = `Statut: ${response.status} ${response.statusText} ❌`;
                         statusEl.className = 'status error';
